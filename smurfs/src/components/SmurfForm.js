@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import useStyles from "../MaterialUI/useStyles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -10,7 +10,6 @@ import { addSmurf } from "../actions"
 const SmurfForm = () => {
     const classes = useStyles();
     const state = useSelector(state => state.smurfsReducer);
-    const [errorMsg, setErrorMsg] = useState("");
 
     const dispatch = useDispatch();
     const [values, handleChanges] = useForm({
@@ -24,10 +23,6 @@ const SmurfForm = () => {
         dispatch(addSmurf(values));
     }
 
-    useEffect(() => {
-        setErrorMsg(state.error);
-    }, [state.error, errorMsg]);
-
     return (
         <React.Fragment>
             <form className = {classes.formRoot} noValidate autoComplete="off" onSubmit = {submitSmurf}>
@@ -39,7 +34,7 @@ const SmurfForm = () => {
 
             </form>
             
-            {errorMsg !== ""  && <p>{errorMsg}</p>}
+            {state.error !== ""  && <p>{state.error}</p>}
 
         </React.Fragment>
     );

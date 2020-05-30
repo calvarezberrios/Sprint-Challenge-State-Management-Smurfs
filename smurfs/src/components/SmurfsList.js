@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getSmurfs } from "../actions";
 
@@ -11,6 +11,10 @@ const SmurfsList = () => {
     React.useEffect(() => {
         dispatch(getSmurfs());
     }, [dispatch]);
+
+    React.useEffect(() => {
+        dispatch(getSmurfs());
+    }, [dispatch, error])
 
     console.log("cea: components/SmurfsList.js: isFetching: ", isFetching);
     

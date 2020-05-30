@@ -4,6 +4,10 @@ export const FETCH_START = "FETCH_START";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_FAILURE = "FETCH_FAILURE";
 export const ADD_SMURF_FAILURE = "ADD_SMURF_FAILURE";
+export const EDIT_SMURF_SUCCESS = "EDIT_SMURF_SUCCESS";
+export const EDIT_SMURF_FAILURE = "EDIT_SMURF_FAILRE";
+export const DELETE_SMURF_SUCCESS = "DELETE_SMURF_SUCCESS";
+export const DELETE_SMURF_FAILURE = "DELETE_SMURF_FAILRE";
 
 export const getSmurfs = () => dispatch => {
     console.log("cea: actions/index.js: getSmurfs");
@@ -48,4 +52,36 @@ export const addSmurf = smurf => dispatch => {
                 payload: err.response.data.Error
             });
         })
+}
+
+export const editSmurf = smurf => dispatch => {
+    axios.put(`http://localhost:3333/smurfs/${smurf.id}`)
+    .then(res => {
+        dispatch({
+            type: EDIT_SMURF_SUCCESS,
+            payload: smurf
+        });
+    })
+    .catch(err => {
+        dispatch({
+            type: EDIT_SMURF_FAILURE,
+            payload: err.response.data.Error
+        });
+    });
+}
+
+export const deleteSmurf = id => dispatch => {
+    axios.delete(`http://localhost:3333/smurfs/${id}`)
+        .then(res => {
+            dispatch({
+                type: DELETE_SMURF_SUCCESS,
+                payload: id
+            });
+        })
+        .catch(err => {
+            dispatch({
+                type: DELETE_SMURF_FAILURE,
+                payload: err.response.data.Error
+            });
+        });
 }
