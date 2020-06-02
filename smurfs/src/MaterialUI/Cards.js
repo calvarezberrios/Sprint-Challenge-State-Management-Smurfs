@@ -5,8 +5,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
-import {deleteSmurf, editSmurf, getSmurfs} from "../actions";
+import {deleteSmurf, editSmurf} from "../actions";
 import { useDispatch } from 'react-redux';
 import useForm from "../hooks/useForm";
 
@@ -26,13 +27,9 @@ export default function Cards(smurf) {
         e.preventDefault();
 
         if(isEditing) {
-            dispatch(editSmurf(smurf));
-            
+            dispatch(editSmurf(smurf.id, values));
         }
-
         setIsEditing(!isEditing);
-
-        
     }
 
     const deleteHandler = e => {
@@ -42,6 +39,8 @@ export default function Cards(smurf) {
     }
 
     return (
+        <Grid  item xs={6} sm={3}>  
+
         <Card className={classes.card}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -73,5 +72,6 @@ export default function Cards(smurf) {
                 {!isEditing && <Button size="small" onClick = {deleteHandler}>Delete</Button>}
             </CardActions>
         </Card>
+        </Grid>
     );
 }

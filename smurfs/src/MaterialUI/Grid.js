@@ -12,13 +12,11 @@ export default function FullWidthGrid() {
     return (
         <div className={classes.grid}>
             <Grid container spacing={3}>
-                
                     {smurfs.map(smurf => (
-                        <Grid key = {smurf.id} item xs={6} sm={3}>
-                            <SmurfCard {...smurf} />
-                        </Grid>
+                        
+                            <SmurfCard key = {smurf.id} {...smurf} />
+                        
                     ))}
-                
             </Grid>
         </div>
     );

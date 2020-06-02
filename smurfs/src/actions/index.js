@@ -3,6 +3,7 @@ import axios from "axios";
 export const FETCH_START = "FETCH_START";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_FAILURE = "FETCH_FAILURE";
+export const ADD_SMURF_SUCCESS = "ADD_SMURF_SUCCESS";
 export const ADD_SMURF_FAILURE = "ADD_SMURF_FAILURE";
 export const EDIT_SMURF_SUCCESS = "EDIT_SMURF_SUCCESS";
 export const EDIT_SMURF_FAILURE = "EDIT_SMURF_FAILRE";
@@ -40,8 +41,8 @@ export const addSmurf = smurf => dispatch => {
         .then(res => {
             console.log("cea: actions/index.js: addSmurf: res.data", res.data);
             dispatch({
-                type: ADD_SMURF_FAILURE,
-                payload: ""
+                type: ADD_SMURF_SUCCESS,
+                payload: res.data
             });
         })
         .catch(err => {
@@ -54,12 +55,13 @@ export const addSmurf = smurf => dispatch => {
         })
 }
 
-export const editSmurf = smurf => dispatch => {
-    axios.put(`http://localhost:3333/smurfs/${smurf.id}`)
+export const editSmurf = (id, smurf) => dispatch => {
+    axios.put(`http://localhost:3333/smurfs/${id}`, smurf)
     .then(res => {
+        console.log("cea: actions/index.js: editSmurf: res.data: ", res.data)
         dispatch({
             type: EDIT_SMURF_SUCCESS,
-            payload: smurf
+            payload: res.data
         });
     })
     .catch(err => {

@@ -1,5 +1,5 @@
 import { 
-    FETCH_START, FETCH_SUCCESS, FETCH_FAILURE, ADD_SMURF_FAILURE, DELETE_SMURF_SUCCESS, DELETE_SMURF_FAILURE, EDIT_SMURF_SUCCESS, EDIT_SMURF_FAILURE,
+    FETCH_START, FETCH_SUCCESS, FETCH_FAILURE, ADD_SMURF_FAILURE, DELETE_SMURF_SUCCESS, DELETE_SMURF_FAILURE, EDIT_SMURF_SUCCESS, EDIT_SMURF_FAILURE, ADD_SMURF_SUCCESS,
 } from "../actions";
 
 export const initialState = {
@@ -29,6 +29,12 @@ export const smurfsReducer = (state = initialState, action) => {
                 isFetching: false,
                 error: action.payload
             };
+        case ADD_SMURF_SUCCESS:
+            return {
+                ...state,
+                smurfs: action.payload,
+                error: ""
+            }
         case ADD_SMURF_FAILURE:
             return {
                 ...state,
@@ -47,13 +53,7 @@ export const smurfsReducer = (state = initialState, action) => {
         case EDIT_SMURF_SUCCESS:
             return {
                 ...state,
-                smurfs: state.smurfs.map(smurf => {
-                    if(smurf.id === action.payload.id) {
-                        return action.payload;
-                    }
-                    return smurf;
-                }),
-                error: ""
+                smurfs: action.payload
             };
         case EDIT_SMURF_FAILURE:
             return {

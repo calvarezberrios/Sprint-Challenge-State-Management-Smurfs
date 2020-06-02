@@ -8,7 +8,11 @@ export default function useForm(initialvalues) {
             ...values,
             [e.target.name]: e.target.value
         });
+    };
+
+    const clearValues = () => {
+        setValues(initialvalues);
     }
 
-    return [values, handleChanges];
+    return [values, handleChanges, clearValues];
 }

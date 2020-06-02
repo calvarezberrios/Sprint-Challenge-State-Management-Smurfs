@@ -4,23 +4,25 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 import useForm from "../hooks/useForm";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addSmurf } from "../actions"
+
+const initialValues = {
+    name: "",
+    age: "",
+    height: ""
+};
 
 const SmurfForm = () => {
     const classes = useStyles();
-    const state = useSelector(state => state.smurfsReducer);
 
     const dispatch = useDispatch();
-    const [values, handleChanges] = useForm({
-        name: "",
-        age: "",
-        height: ""
-    });
+    const [values, handleChanges, clearValues] = useForm(initialValues);
 
     const submitSmurf = e => {
         e.preventDefault();
         dispatch(addSmurf(values));
+        clearValues();
     }
 
     return (
@@ -34,7 +36,7 @@ const SmurfForm = () => {
 
             </form>
             
-            {state.error !== ""  && <p>{state.error}</p>}
+            
 
         </React.Fragment>
     );
